@@ -12,4 +12,4 @@ key.json
 }
 ```
 # DOCS
-**SOON**
+<a href="wax05.xyz/api/docs">API DOCS </a>
