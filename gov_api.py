@@ -59,5 +59,3 @@ def get_school_time(ATPT_OFCDC_SC_CODE:str,school_code:int,grade:int,class_:int,
     for i in data3:
         return_list.append(i['ITRT_CNTNT'])
     return return_list
-
-print(get_school_time('J10',7531374,2,6,20221027))
