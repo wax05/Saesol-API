@@ -6,7 +6,7 @@ def get_geb_info(date:int)->dict:
     with open('config/key.json') as f:
         json_file = json.load(f)
     api_key = f"KEY={json_file['api-key']}"
-    url = f"https://open.neis.go.kr/hub/mealServiceDietInfo?{api_key}&Type=json&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7531374&MLSV_YMD={date}"
+    url = f"https://open.neis.go.kr/hub/mealServiceDietInfo?{api_key}&Type=json&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7531374&MLSV_YMD={date}"
     res = requests.get(url)
     json_res = res.json()
     data1 = json_res['mealServiceDietInfo']
@@ -44,3 +44,20 @@ def get_school_info(school_name:str)->dict:
     data3 = data2['row']
     data3 = data3[0]
     return data3
+
+def get_school_time(ATPT_OFCDC_SC_CODE:str,school_code:int,grade:int,class_:int,date:int):
+    with open('config/key.json') as f:
+        json_file = json.load(f)
+    api_key = f"KEY={json_file['api-key']}"
+    url = f"https://open.neis.go.kr/hub/hisTimetable?{api_key}&Type=json&ATPT_OFCDC_SC_CODE={ATPT_OFCDC_SC_CODE}&SD_SCHUL_CODE={school_code}&GRADE={grade}&CLASS_NM={class_}&TI_FROM_YMD={date}&TI_TO_YMD={date}"
+    res = requests.get(url)
+    json_data = res.json()
+    data1 = json_data['hisTimetable']
+    data2 = data1[1]
+    data3 = data2['row']
+    return_list = []
+    for i in data3:
+        return_list.append(i['ITRT_CNTNT'])
+    return return_list
+
+print(get_school_time('J10',7531374,2,6,20221027))
